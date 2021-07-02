@@ -1,4 +1,4 @@
 {
-	"ident": "abby.connection_error",
-	"sharedassets": "*.*"
+	"sharedassets": "*.*",
+	"ident": "abby.connection_error"
 }
