@@ -1,8 +1,7 @@
 ﻿using Sandbox;
 
 public partial class MinimalGame : Sandbox.Game {
-	public MinimalGame()
-	{
+	public MinimalGame() {
 		if (IsServer) {
 			Log.Info("Shit has loaded");
 
@@ -16,10 +15,5 @@ public partial class MinimalGame : Sandbox.Game {
 
 	public override void ClientJoined(Client client) {
 		base.ClientJoined(client);
-
-		MinimalPlayer player = new MinimalPlayer();
-		client.Pawn = player;
-
-		player.Respawn();
 	}
 }
