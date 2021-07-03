@@ -1,0 +1,13 @@
+ConnectionProblemCounter {
+	height: 100%;
+	width: 100%;
+	background-color: black;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	.connection-problem-text {
+		font-size: 32px;
+		color: red;
+	}
+}
