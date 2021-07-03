@@ -13,7 +13,7 @@ namespace ConnectionProblem {
 
         public override void Tick() {
             label.Text = $"WARNING: Connection Problem\nAuto-disconnect in {counter:0.0} seconds";
-            counter += Time.Delta;
+            counter += RealTime.Delta;
         }
     }
 }

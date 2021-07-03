@@ -1,13 +1,16 @@
 ConnectionProblemCounter {
 	height: 100%;
 	width: 100%;
-	background-color: black;
+	background-color: #111;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
 	.connection-problem-text {
-		font-size: 32px;
+		font-family: Verdana;
+		font-size: 9px;
+		text-shadow: 1px 1px black;
 		color: red;
+		transform: scale(5);
 	}
 }
