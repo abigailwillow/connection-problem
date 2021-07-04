@@ -1,3 +1,3 @@
-# connection_error
+# connection_problem
 
 Shitty sbox addon
