@@ -1,19 +1,36 @@
+using System;
 using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 
 namespace ConnectionProblem {
     public class ConnectionProblemCounter : Panel {
-        public Label label;
-        public float counter = 0;
+        private Label label;
+        private float counter = 0;
+        double lastCounter = 0;
+        private string message = "WARNING: Connection Problem\nAuto-disconnect in %seconds% seconds";
 
         public ConnectionProblemCounter() {
-            label = Add.Label("WARNING: Connection Problem\nAuto-disconnect in 0.0 seconds", "connection-problem-text");
+            label = Add.Label(message.Replace("%seconds%", "0.0"), "connection-problem-text");
+            LoadUserScoreAsync();
+        }
+
+        public async void LoadUserScoreAsync() {
+            UserScore userScore = await APIClient.getScoreAsync(Local.SteamId);
+            counter = userScore.Score;
+            Log.Info($"Retrieved score for SteamID {userScore.SteamId} and set score to {userScore.Score}");
         }
 
         public override void Tick() {
-            label.Text = $"WARNING: Connection Problem\nAuto-disconnect in {counter:0.0} seconds";
+            label.Text = message.Replace("%seconds%", $"{counter:0.0}");
             counter += RealTime.Delta;
+
+            double roundedTime = Math.Round(counter);
+            if (roundedTime % 30 == 0 && roundedTime != lastCounter) {
+                APIClient.setScoreAsync(new UserScore(Local.SteamId, counter));
+                Log.Info($"Updated score for SteamID {Local.SteamId} to {counter}");
+                lastCounter = roundedTime;
+            }
         }
     }
 }

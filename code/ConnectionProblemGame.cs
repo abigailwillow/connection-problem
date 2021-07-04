@@ -7,5 +7,9 @@ namespace ConnectionProblem {
 				new ConnectionProblemUI();
 			}
 		}
+
+		public override void ClientJoined(Client client) {
+			client.Pawn = new ConnectionProblemPlayer();
+		}
 	}
 }
