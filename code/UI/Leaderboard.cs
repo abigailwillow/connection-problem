@@ -19,7 +19,7 @@ namespace ConnectionProblem {
             scores = scores.OrderByDescending(score => score.Score).ToArray();
             for (int i = 0; i < scores.Length; i++) {
                 UserScore score = scores[i];
-                leaderboard.Text += $"{i + 1}. {score.SteamId} - {score.Score:0.0} seconds\n";
+                leaderboard.Text += $"{i + 1}. {score.Name} - {score.Score:0.0} seconds\n";
             }
         }
     }

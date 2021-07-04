@@ -27,7 +27,7 @@ namespace ConnectionProblem {
             
             double counterRounded = Math.Round(counter);
             if (counterRounded % 30 == 0 && counterRounded != lastCounter) {
-                UserScore userScore = new UserScore(Local.SteamId, counter);
+                UserScore userScore = new UserScore(Local.SteamId, Local.DisplayName, counter);
                 APIClient.setScoreAsync(userScore);
                 Log.Info($"Updated score for SteamID {userScore.SteamId} to {userScore.Score}");
                 lastCounter = counterRounded;
