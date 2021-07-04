@@ -11,8 +11,11 @@ namespace ConnectionProblem {
         private static Uri uri = new Uri("http://abbydiode.com:6969");
         private static HttpClient client = new HttpClient();
 
-        public static void getScoresAsync(int limit) {
-
+        public static async Task<UserScore[]> getScoresAsync(int limit = 10) {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, new Uri(uri, $"/scores?limit={limit}"));
+            request.Headers.Authorization = new AuthenticationHeaderValue("Basic", x());
+            HttpResponseMessage response = await client.SendAsync(request);
+            return await response.Content.ReadFromJsonAsync<UserScore[]>();
         }
 
         public static async Task<UserScore> getScoreAsync(ulong steamid) {

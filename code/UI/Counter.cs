@@ -4,14 +4,14 @@ using Sandbox.UI;
 using Sandbox.UI.Construct;
 
 namespace ConnectionProblem {
-    public class ConnectionProblemCounter : Panel {
+    public class Counter : Panel {
         private Label label;
         private float counter = 0;
         double lastCounter = 0;
         private string message = "WARNING: Connection Problem\nAuto-disconnect in %seconds% seconds";
 
-        public ConnectionProblemCounter() {
-            label = Add.Label(message.Replace("%seconds%", "0.0"), "connection-problem-text");
+        public Counter() {
+            label = Add.Label(message.Replace("%seconds%", "0.0"), "counter-text");
             LoadUserScoreAsync();
         }
 
@@ -22,14 +22,15 @@ namespace ConnectionProblem {
         }
 
         public override void Tick() {
-            label.Text = message.Replace("%seconds%", $"{counter:0.0}");
+            label.Text = $"WARNING: Connection Problem\nAuto-disconnect in {counter:0.0} seconds";
             counter += RealTime.Delta;
-
-            double roundedTime = Math.Round(counter);
-            if (roundedTime % 30 == 0 && roundedTime != lastCounter) {
-                APIClient.setScoreAsync(new UserScore(Local.SteamId, counter));
-                Log.Info($"Updated score for SteamID {Local.SteamId} to {counter}");
-                lastCounter = roundedTime;
+            
+            double counterRounded = Math.Round(counter);
+            if (counterRounded % 30 == 0 && counterRounded != lastCounter) {
+                UserScore userScore = new UserScore(Local.SteamId, counter);
+                APIClient.setScoreAsync(userScore);
+                Log.Info($"Updated score for SteamID {userScore.SteamId} to {userScore.Score}");
+                lastCounter = counterRounded;
             }
         }
     }
