@@ -6,8 +6,9 @@ namespace ConnectionProblem {
 		public ConnectionProblemUI() {
 			if (!IsClient) { return; }
 
-			RootPanel.StyleSheet.Load("/ui/ConnectionProblemUI.scss");
-			RootPanel.AddChild<ConnectionProblemCounter>();
+			RootPanel.StyleSheet.Load("/UI/ConnectionProblemUI.scss");
+			RootPanel.AddChild<Counter>();
+			RootPanel.AddChild<Leaderboard>();
 		}
 	}
 }
