@@ -27,7 +27,7 @@ namespace ConnectionProblem {
             
             double runTimeRounded = Math.Round(RealTime.Now);
             if (runTimeRounded % 30 == 0 && runTimeRounded != lastScoreUpdate) {
-                UserScore userScore = new UserScore(Local.SteamId, Local.DisplayName, score);
+                UserScore userScore = new UserScore(Local.SteamId.ToString(), Local.DisplayName, score);
                 APIClient.setScoreAsync(userScore);
                 Log.Info($"Updated score for SteamID {userScore.SteamId} to {userScore.Score}");
                 lastScoreUpdate = runTimeRounded;

@@ -17,6 +17,7 @@ namespace ConnectionProblem {
 
         public async void LoadLeaderboardAsync() {
             UserScore[] scores = await APIClient.getScoresAsync();
+            leaderboard.Text = "";
             scores = scores.OrderByDescending(score => score.Score).ToArray();
             for (int i = 0; i < scores.Length; i++) {
                 UserScore score = scores[i];
@@ -27,7 +28,7 @@ namespace ConnectionProblem {
 
         public override void Tick() {
             double runTimeRounded = Math.Round(RealTime.Now);
-            if (runTimeRounded % 60 == 0 && runTimeRounded != lastLeaderboardUpdate) {
+            if (runTimeRounded % 30 == 0 && runTimeRounded != lastLeaderboardUpdate) {
                 LoadLeaderboardAsync();
                 lastLeaderboardUpdate = runTimeRounded;
             }
