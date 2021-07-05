@@ -1,13 +1,13 @@
 namespace ConnectionProblem {
     public class UserScore {
-        public string SteamId { get; set; }
-        public string Name { get; set; }
-        public float Score { get; set; }
+        public string steamid { get; set; }
+        public string name { get; set; }
+        public float score { get; set; }
 
         public UserScore(string steamid, string name, float score) {
-            this.SteamId = steamid;
-            this.Name = name;
-            this.Score = score;
+            this.steamid = steamid;
+            this.name = name;
+            this.score = score;
         }
     }
 }
