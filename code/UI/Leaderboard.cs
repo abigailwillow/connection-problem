@@ -7,6 +7,7 @@ using Sandbox.UI.Construct;
 namespace ConnectionProblem {
     public class Leaderboard : Panel {
         private Label leaderboard;
+        private double lastLeaderboardUpdate = 0;
 
         public Leaderboard() {
             Add.Label("🏆 Leaderboard", "leaderboard-title");
@@ -20,6 +21,15 @@ namespace ConnectionProblem {
             for (int i = 0; i < scores.Length; i++) {
                 UserScore score = scores[i];
                 leaderboard.Text += $"{i + 1}. {score.Name} - {score.Score:0.0} seconds\n";
+                Log.Info("Updated leaderboard");
+            }
+        }
+
+        public override void Tick() {
+            double runTimeRounded = Math.Round(RealTime.Now);
+            if (runTimeRounded % 60 == 0 && runTimeRounded != lastLeaderboardUpdate) {
+                LoadLeaderboardAsync();
+                lastLeaderboardUpdate = runTimeRounded;
             }
         }
     }

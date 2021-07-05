@@ -6,8 +6,8 @@ using Sandbox.UI.Construct;
 namespace ConnectionProblem {
     public class Counter : Panel {
         private Label label;
-        private float counter = 0;
-        double lastCounter = 0;
+        private float score = 0;
+        double lastScoreUpdate = 0;
         private string message = "WARNING: Connection Problem\nAuto-disconnect in %seconds% seconds";
 
         public Counter() {
@@ -17,20 +17,20 @@ namespace ConnectionProblem {
 
         public async void LoadUserScoreAsync() {
             UserScore userScore = await APIClient.getScoreAsync(Local.SteamId);
-            counter = userScore.Score;
+            score = userScore.Score;
             Log.Info($"Retrieved score for SteamID {userScore.SteamId} and set score to {userScore.Score}");
         }
 
         public override void Tick() {
-            label.Text = $"WARNING: Connection Problem\nAuto-disconnect in {counter:0.0} seconds";
-            counter += RealTime.Delta;
+            label.Text = $"WARNING: Connection Problem\nAuto-disconnect in {score:0.0} seconds";
+            score += RealTime.Delta;
             
-            double counterRounded = Math.Round(counter);
-            if (counterRounded % 30 == 0 && counterRounded != lastCounter) {
-                UserScore userScore = new UserScore(Local.SteamId, Local.DisplayName, counter);
+            double runTimeRounded = Math.Round(RealTime.Now);
+            if (runTimeRounded % 30 == 0 && runTimeRounded != lastScoreUpdate) {
+                UserScore userScore = new UserScore(Local.SteamId, Local.DisplayName, score);
                 APIClient.setScoreAsync(userScore);
                 Log.Info($"Updated score for SteamID {userScore.SteamId} to {userScore.Score}");
-                lastCounter = counterRounded;
+                lastScoreUpdate = runTimeRounded;
             }
         }
     }
