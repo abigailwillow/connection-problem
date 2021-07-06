@@ -20,12 +20,11 @@ namespace ConnectionProblem {
         }
 
         public void UpdateLeaderboard(UserScore[] scores) {
-            this.DeleteChildren();
+            this.DeleteChildren(true);
             this.Add.Label("🏆 Leaderboard", "leaderboard-title");
             scores = scores.OrderByDescending(score => score.score).ToArray();
             for (int i = 0; i < scores.Length;) {
                 this.AddChild(new LeaderboardEntry(scores[i], ++i));
-                
             }
         }
     }
