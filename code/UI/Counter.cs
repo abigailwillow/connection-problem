@@ -21,9 +21,9 @@ namespace ConnectionProblem {
         }
 
         public async void InitializeWebsocket() {
-            client.OnMessageReceived += json => score = JsonSerializer.Deserialize<UserScore>(json).score;
+            client.OnMessageReceived += json => score = JsonSerializer.Deserialize<Score>(json).score;
+            client.OnMessageReceived += json => Log.Info($"Received saved score {json}");
             await client.Connect($"ws://abbydiode.com:6969/score/{Local.SteamId}");
-            await client.Send(JsonSerializer.Serialize(new UserScore(Local.SteamId.ToString(), Local.DisplayName, score)));
         }
     }
 }

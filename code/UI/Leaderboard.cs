@@ -17,11 +17,11 @@ namespace ConnectionProblem {
 
         public async void InitializeWebsocket() {
             client.OnMessageReceived += json => UpdateLeaderboard(JsonSerializer.Deserialize<UserScore[]>(json));
+            client.OnMessageReceived += json => Log.Info($"Received updated leaderboard {json}");;
             await client.Connect($"ws://abbydiode.com:6969/leaderboard");
         }
 
         public void UpdateLeaderboard(UserScore[] scores) {
-            Log.Info("Updated leaderboard");
             leaderboard.Text = "";
             scores = scores.OrderByDescending(score => score.score).ToArray();
             for (int i = 0; i < scores.Length; i++) {
