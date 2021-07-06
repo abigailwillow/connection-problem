@@ -21,12 +21,12 @@ namespace ConnectionProblem {
         }
 
         public void UpdateLeaderboard(UserScore[] scores) {
+            Log.Info("Updated leaderboard");
             leaderboard.Text = "";
             scores = scores.OrderByDescending(score => score.score).ToArray();
             for (int i = 0; i < scores.Length; i++) {
                 UserScore score = scores[i];
                 leaderboard.Text += $"{i + 1}. {score.name} - {score.score:0.0} seconds\n";
-                Log.Info("Updated leaderboard");
             }
         }
     }
