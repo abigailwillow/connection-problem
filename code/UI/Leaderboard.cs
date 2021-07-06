@@ -10,8 +10,6 @@ namespace ConnectionProblem {
         private WebSocket client = new WebSocket();
 
         public Leaderboard() {
-            Add.Label("🏆 Leaderboard", "leaderboard-title");
-            leaderboard = Add.Label("", "leaderboard-text");
             InitializeWebsocket();
         }
 
@@ -22,11 +20,12 @@ namespace ConnectionProblem {
         }
 
         public void UpdateLeaderboard(UserScore[] scores) {
-            leaderboard.Text = "";
+            this.DeleteChildren();
+            this.Add.Label("🏆 Leaderboard", "leaderboard-title");
             scores = scores.OrderByDescending(score => score.score).ToArray();
-            for (int i = 0; i < scores.Length; i++) {
-                UserScore score = scores[i];
-                leaderboard.Text += $"{i + 1}. {score.name} - {score.score:0.0} seconds\n";
+            for (int i = 0; i < scores.Length;) {
+                this.AddChild(new LeaderboardEntry(scores[i], ++i));
+                
             }
         }
     }
