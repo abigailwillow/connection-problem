@@ -8,7 +8,7 @@ namespace ConnectionProblem {
 
         public LeaderboardEntry(UserScore userScore, int place) {
             this.Add.Image(userScore.avatar, "leaderboard-entry-image");
-            this.Add.Label($"{place}. {userScore.name} - {userScore.score} seconds", "leaderboard-entry-text");
+            this.Add.Label($"{place}. {userScore.name} - {userScore.score:n} seconds", "leaderboard-entry-text");
         }
     }
 }
