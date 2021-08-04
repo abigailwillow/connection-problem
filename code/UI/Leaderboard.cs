@@ -14,12 +14,12 @@ namespace ConnectionProblem {
         }
 
         public async void InitializeWebsocket() {
-            this.AddChild(new LeaderboardEntry(new UserScore(0, "0", "Server is experiencing unexpected downtime", "https://i.imgur.com/FKoeEOk.png"), 1));
-            this.AddChild(new LeaderboardEntry(new UserScore(0, "0", "During downtime, your score cannot be updated", ""), 2));
+            // this.AddChild(new LeaderboardEntry(new UserScore(0, "0", "Server is experiencing unexpected downtime", "https://i.imgur.com/FKoeEOk.png"), 1));
+            // this.AddChild(new LeaderboardEntry(new UserScore(0, "0", "During downtime, your score cannot be updated", ""), 2));
 
             client.OnMessageReceived += json => UpdateLeaderboard(JsonSerializer.Deserialize<UserScore[]>(json));
             client.OnMessageReceived += json => Log.Info($"Received updated leaderboard {json}");;
-            await client.Connect($"ws://abbydiode.com:6969/leaderboard");
+            await client.Connect($"ws://connection-problem-server.abbydiode.com/leaderboard");
         }
 
         public void UpdateLeaderboard(UserScore[] scores) {
