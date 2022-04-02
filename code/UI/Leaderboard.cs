@@ -6,7 +6,6 @@ using System.Text.Json;
 
 namespace ConnectionProblem {
     public class Leaderboard : Panel {
-        private Label leaderboard;
         private WebSocket client = new WebSocket();
 
         public Leaderboard() {
